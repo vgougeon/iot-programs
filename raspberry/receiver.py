@@ -16,6 +16,6 @@ class Sensor(Thread):
 threads = []
 
 for i in range(0, len(sensors)):
-    threads.append(Sensor("sensor/" + sensors[i]))
+    threads.append(Sensor("..arduino/sensor/" + sensors[i]))
     threads[i].start()
     threads[i].join()
