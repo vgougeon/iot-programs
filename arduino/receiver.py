@@ -9,7 +9,7 @@ class Sensor(Thread):
     fifo = open(cls.name, "r")
     while True:
         for line in fifo:
-            print("Received" + line)
+            print("Received = " + line)
 
 sensor1 = Sensor("sensor/humidity")
 
