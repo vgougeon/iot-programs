@@ -1,6 +1,8 @@
 import os
 from threading import Thread
 
+sensors=["humidity","temperature","brightness","wind","altitude","atmospheric_pressure"]
+
 class Sensor(Thread):
   def __init__(cls, name):
     Thread.__init__(cls)
@@ -9,10 +11,11 @@ class Sensor(Thread):
     fifo = open(cls.name, "r")
     while True:
         for line in fifo:
-            print("Received = " + line)
+            print(cls.name + " value : " + line)
 
-sensor1 = Sensor("sensor/humidity")
+threads = []
 
-sensor1.start()
-
-sensor1.join()
+for i in range(0, len(sensors)):
+    threads.append(Sensor("sensor/" + sensors[i]))
+    threads[i].start()
+    threads[i].join()
