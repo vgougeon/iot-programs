@@ -8,4 +8,5 @@ while True:
         file = os.open(sensor_array[i],os.O_RDWR)
         os.write(file,str.encode(str(random.randint(0,1024))))
         os.close(file)
+    print("cc")
     time.sleep(1)
