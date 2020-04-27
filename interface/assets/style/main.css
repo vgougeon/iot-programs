@@ -1,0 +1,64 @@
+body, html{
+    margin:0;
+    padding:0;
+}
+
+
+
+.banner{
+    width: 100%;
+    height: 250px;
+    
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url("../img/bg2.jpg");
+    border-bottom: solid 10px rgba(232, 236, 241, 1);
+    background-size: 100%;
+   
+
+    
+}
+
+.banner h1{
+    background-color: #FEE140;
+    background-image: linear-gradient(90deg, #FEE140 0%, #FA709A 100%);
+    border-radius: 10px;
+    padding: 20px;
+    border :solid 3px white;
+    font-size:65px;
+}
+
+.main-title{
+    margin : 40px;
+}
+
+
+.sensors{
+    display:flex;
+    flex-direction:row;
+}
+
+.card{
+    box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
+    margin: 30px;
+}
+
+.card-body h5{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+.card-text{
+    display:flex;
+    justify-content: start;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card-body a{
+    align-items: center;
+    display:flex;
+    justify-content: center;
+}
