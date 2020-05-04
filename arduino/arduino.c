@@ -1,6 +1,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 #include <fcntl.h>
 #include <sys/stat.h>
@@ -13,10 +14,18 @@ void readValue(char* path, char* value) {
 	close(fd);
 }
 
-void sendToPipe(char* path, char* value) {
+void sendToPipe(char* path,  char* value) {
 	int pipe;
-	pipe = open(path, O_RDWR);
-	write(pipe, value, 4);
+	char *result = malloc(strlen(path) + strlen(value) + 2); // +1 for the null-terminator
+    	// in real code you would check for errors in malloc here
+    	strcpy(result, path);
+	strcat(result, "-");
+    	strcat(result, value);
+	strcat(result, "\n");
+	printf("%ld - %ld", strlen(path), strlen(value));
+	pipe = open("mainpipe", O_RDWR);
+	printf("Send %s\n", result);
+	write(pipe, result, (strlen(path) + strlen(value) + 2));
 	close(pipe);
 }
 int main()
