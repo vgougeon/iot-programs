@@ -1,3 +1,4 @@
+<?php include('connect.php'); ?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -27,34 +28,34 @@
     </header>
 
     <div class="main">
-        <div class = "main-title">
-            <h2>Vos données actuelles :</h2>
-            <div class = "sensors">
-                <div class="card" style="width: 18rem;">
+        <div>
+            <h2 class="mt-4 mx-4">Vos données actuelles :</h2>
+            <div class="sensors">
+                <?php 
+                $req = $db->query("SELECT * FROM sensors");
+                while($res = $req->fetch()){
+                    $get = $db->query("SELECT * FROM data WHERE sensorId=1 LIMIT 2");
+                    $humidity = $get->fetchAll(); ?>
+                    <div class="card">
                     <img src="assets/img/temp.png" class="card-img-top" alt="temperature image">
                     <div class="card-body">
-                        <h5 class="card-title">Température:</h5>
-                        <p class="card-text">
-                            <span class="past-data">- 2h00 : 27°</span>
-                            <span class="present-data">Actuelle : 28°</span>
-                            <span class="futur-data">+ 2h00 : 26°</span>
+                        <h5 class="card-title"><?=  ucfirst($res["name"]) ?> :</h5>
+                        <p class="card-text ">
+                            <span class="past-data">- 2h00 : 
+                                <?= convert($res["name"], $humidity[0]["value"]) ?>
+                            </span>
+                            <span class="present-data">Actuelle : 
+                                <?= convert($res["name"], $humidity[1]["value"]) ?>
+                            </span>
+                            <span class="futur-data">+ 2h00 : 
+                                <?= convert($res["name"], $humidity[1]["value"] + ($humidity[1]["value"] - $humidity[0]["value"])/2) ?> 
+                            </span>
                         </p>
                         <a href="#" class="btn btn-primary">Voir les prévisions</a>
                     </div>
                 </div>
 
-                <div class="card" style="width: 18rem;">
-                    <img src="assets/img/temp.png" class="card-img-top" alt="temperature image">
-                    <div class="card-body">
-                        <h5 class="card-title">Température:</h5>
-                        <p class="card-text">
-                            <span class="past-data">- 2h00 : 27°</span>
-                            <span class="present-data">Actuelle : 28°</span>
-                            <span class="futur-data">+ 2h00 : 26°</span>
-                        </p>
-                        <a href="#" class="btn btn-primary">Voir les prévisions</a>
-                    </div>
-                </div>
+                <?php } ?>
             </div>
 
         
