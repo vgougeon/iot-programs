@@ -19,17 +19,17 @@ class Sensor(Thread):
     fifo = open(cls.name, "r")
     while True:
         for line in fifo:
-            id = cursor.execute("select id from sensors where name = %s" % (cls.sensorName))
+            id = cursor.execute("select id from sensors where name = '%s'" % (cls.sensorName))
             print(id)
-            #sql = "insert into data values (sensorId = "+id+", value = "+line+")"
-            #cursor.execute(sql)
-            #connection.commit()
+            sql = "insert into data (sensorId,value) values (1,200)"
+            cursor.execute(sql)
+            connection.commit()
             print(cls.name + " value : " + line)
 
 threads = []
 
 for i in range(0, len(sensors)):
-    threads.append(Sensor("../arduino/sensor/" + sensors[i], sensors[i]))
+    threads.append(Sensor("../arduino/" + sensors[i], sensors[i]))
     threads[i].start()
-cursor.close()
-connection.close()
+
+
