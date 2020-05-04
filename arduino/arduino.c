@@ -33,9 +33,18 @@ int main()
 	while(stop == 0){
 		char value[MAX_BUF];
 		readValue(humidity, value);
-		printf("Value : %s\n", value);
+		printf("Humidity : %s\n", value);
 		sendToPipe("humidity", value);
-    		//write(fd, value, sizeof(value));
+		readValue(altitude, value);
+		sendToPipe("altitude", value);
+		readValue(temperature, value);
+		sendToPipe("temperature", value);
+		readValue(brightness, value);
+		sendToPipe("brightness", value);
+		readValue(wind, value);
+		sendToPipe("wind", value);
+		readValue(atmospheric_pressure, value);
+		sendToPipe("atmospheric_pressure", value);
 		sleep(2);
 	}
 
