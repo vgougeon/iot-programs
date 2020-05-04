@@ -1,6 +1,13 @@
 import os
 from threading import Thread
+import MySQLdb
 
+connection = MySQLdb.connect (host = "localhost",
+                              user = "root",
+                              passwd = "",
+                              database = "iot")
+
+cursor = connection.cursor()
 sensors=["humidity","temperature","brightness","wind","altitude","atmospheric_pressure"]
 
 class Sensor(Thread):
@@ -12,12 +19,17 @@ class Sensor(Thread):
     fifo = open(cls.name, "r")
     while True:
         for line in fifo:
-            #id = select id from sensor where name = cls.sensorName
-            #insert into data values (sensorId = id, value = line)
+            id = cursor.execute("select id from sensors where name = '%s'" % (cls.sensorName))
+            print(id)
+            sql = "insert into data (sensorId,value) values (1,200)"
+            cursor.execute(sql)
+            connection.commit()
             print(cls.name + " value : " + line)
 
 threads = []
 
 for i in range(0, len(sensors)):
-    threads.append(Sensor("../arduino/sensor/" + sensors[i], sensors[i]))
+    threads.append(Sensor("../arduino/" + sensors[i], sensors[i]))
     threads[i].start()
+
+
